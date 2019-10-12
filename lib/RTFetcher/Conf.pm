@@ -17,9 +17,9 @@ sub new {
     # DB DSN with HOST
     $self->{database_dsn} .= ";host=$self->{database_host};" if (defined $self->{database_host});
 
-    $self->{rt_host} = 'https://rt.marchex.com';
-    $self->{rt_user} = 'dbhole';
-    $self->{rt_pass} = 'pidrupHl1haf';
+    $self->{rt_host} = '';
+    $self->{rt_user} = '';
+    $self->{rt_pass} = '';
 
     return bless($self, $class);
 }
