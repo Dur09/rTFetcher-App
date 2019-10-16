@@ -6,7 +6,11 @@ use File::FindLib 'lib';
 
 use Dancer2;
 
-use RTFetcher::Utils::Trends;
+use JSON;
+use RTFetcher::RTClient::Client;
+use Data::Dumper;
+
+my $rt = RTFetcher::RTClient::Client->new();
 
 our $VERSION = '0.1';
 
@@ -14,9 +18,11 @@ get '/' => sub {
     template 'index' => { 'title' => 'RTFetcher::App' };
 };
 
-get '/getUserRtCount' => sub {
+post '/api/v1/getUserRtCount' => sub {
     header('Content-Type' => 'application/json');
-    return to_json ;
+    my $data = from_json(request->body);
+    print Dumper $data;
+    return to_json { count => $rt->search_ticket_count_per_user($data) };
 };
 
 true;
