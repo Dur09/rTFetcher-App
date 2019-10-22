@@ -21,8 +21,7 @@ get '/' => sub {
 post '/api/v1/getUserRtCount' => sub {
     header('Content-Type' => 'application/json');
     my $data = from_json(request->body);
-    print Dumper $data;
-    return to_json { count => $rt->search_ticket_count_per_user($data) };
+    return to_json { count => $rt->search_ticket_count_per_user( $data ) };
 };
 
 true;

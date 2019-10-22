@@ -9,9 +9,20 @@ use RTFetcher::Conf;
 use RTFetcher::RTClient::Client;
 use Data::Dumper;
 
-my $rt = RTFetcher::RTClient::Client->new();
+my $conf = RTFetcher::Conf->new();
+my $rt = RTFetcher::RTClient::Client->new( 
+    server => $conf->{rt_host}
+);
+
+
+print Dumper $conf;
+
 $rt->_get_client();
-$rt->login();
+$rt->login(
+    username => $conf->{rt_user},
+    password => $conf->{rt_pass},
+);
+
 
 sub _ticketClient {
     my( $rt ) = @_;
