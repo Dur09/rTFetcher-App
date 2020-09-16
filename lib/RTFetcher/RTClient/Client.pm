@@ -62,5 +62,19 @@ sub search_ticket_count_per_user {
         order_by => 'subject',
     );
 
-    return $results->count;
+    my $resp;
+    my @tickets;
+    my $count = $results->count;
+    my $iterator = $results->get_iterator;
+
+    while (my $ticket = &$iterator) {
+        $resp = {};
+        $resp->{id} = $ticket->id;
+        $resp->{sev} = $ticket->cf('severity');
+        $resp->{desc} = $ticket->subject;
+        $resp->{ts} = $ticket->created;
+        push( @tickets, $resp );
+    }
+ 
+    return \@tickets;
 }
